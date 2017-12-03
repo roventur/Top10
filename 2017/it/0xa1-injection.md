@@ -3,18 +3,17 @@
 | Threat agents/Attack vectors | Security Weakness           | Impacts               |
 | -- | -- | -- |
 | Access Lvl : Exploitability 3 | Prevalence 2 : Detectability 3 | Technical 3 : Business |
-| Almost any source of data can be an injection vector, environment variables, parameters, external and internal web services, and all types of users. [Injection flaws](https://www.owasp.org/index.php/Injection_Flaws) occur when an attacker can send hostile data to an interpreter. | Injection flaws are very prevalent, particularly in legacy code. Injection vulnerabilities are often found in SQL, LDAP, XPath, or NoSQL queries, OS commands, XML parsers, SMTP headers, expression languages, and ORM queries. Injection flaws are easy to discover when examining code. Scanners and fuzzers can help attackers find injection flaws. |Injection can result in data loss, corruption, or disclosure to unauthorized parties, loss of accountability, or denial of access. Injection can sometimes lead to complete host takeover. The business impact depends on the needs of the application and data.|
+| In pratica ogni sorgente di dati può essere una fonte di un attaco di tipo *injection*: variabili di ambiente, parametri, web services esterni ed interni e tutti i tipi di utenti. Una [Injection flaws](https://www.owasp.org/index.php/Injection_Flaws)si ha quando un attaccante può inviare dati dannosi ad un interprete. | Il codice legacy, è particolarmente esposto ai rischi di Injection flaws. Le vulnerabilità di tipo *injection* si trovano spesso in queries SQL, LDAP, XPath o NoSQL, in comandi OS, parsers XML, headers SMTP, expression languages (EL) e queries OML. Le *Injection flaws* sono facilmente individuabili analizzando il codice. L´uso di scanners and fuzzers può agevolare gli attaccanti ad individuare eventuali *injection flaws*. |Le *injection* possono causare perdita o corruzione dei dati, loro pubblicazione a entità non autorizzate, impossibilità di identificare i responsabli delle azioni, o nell´impedire l´accesso alle applicazioni. Una *Injection* in alcuni casi può condurre alla presa totale del controllo di un host. L´impatto sul business dipende dalla natura della applicazione e dei dati.|
 
+## L'Applicazione è vulnerabile?
 
-## Is the Application Vulnerable?
+Una applicazione è vulnerabile all'attacco quando:
 
-An application is vulnerable to attack when:
-
-* User-supplied data is not validated, filtered, or sanitized by the application.
-* Dynamic queries or non-parameterized calls without context-aware escaping are used directly in the interpreter.  
-* Hostile data is used within object-relational mapping (ORM) search parameters to extract additional, sensitive records.
-* Hostile data is directly used or concatenated, such that the SQL or command contains both structure and hostile data in dynamic queries, commands, or stored procedures.
-* Some of the more common injections are SQL, NoSQL, OS command, Object Relational Mapping (ORM), LDAP, and Expression Language (EL) or Object Graph Navigation Library (OGNL) injection. The concept is identical among all interpreters. Source code review is the best method of detecting if applications are vulnerable to injections, closely followed by thorough automated testing of all parameters, headers, URL, cookies, JSON, SOAP, and XML data inputs. Organizations can include static source ([SAST](https://www.owasp.org/index.php/Source_Code_Analysis_Tools)) and dynamic application test ([DAST](https://www.owasp.org/index.php/Category:Vulnerability_Scanning_Tools)) tools into the CI/CD pipeline to identify newly introduced injection flaws prior to production deployment.
+* I dati inseriti da utenti non sono validati, filtrati o sanati dalla applicazione.
+* Queries dinamiche o chiamate non parametrizzate e prive di opportuno escaping, sono usate direttamente nell'interprete.  
+* Dati ostili possono essere usati come parametri di ricerca in strutture ORM (object-relational mapping) per estrarre records aggiuntivi e sensibili.
+* Dati ostili possono essere usati direttamente o mediante concatenazione all'interno di queries dinamiche, comandi o stored procedures.
+* Alcuni dei più comuni tipi di *injections* si hanno in queries SQL, NoSQL, in comandi OS, Object Relational Mapping (ORM), LDAP, Expression Language (EL), Object Graph Navigation Library (OGNL). In concetto è lo stesso per ogni tipo di interprete. Il miglior modo per verificare se una applicazoine è vulnerabile ad attacchi di tipo *injection* è attraverso *source code review*, immediatamente seguito dall'uso di test automatici su tutti i dati di input siano essi parametri, headers, URL, cookies, JSON, SOAP, o XML. È possibile prevedere specicifici tools per eseguire test di tipo statico([SAST](https://www.owasp.org/index.php/Source_Code_Analysis_Tools)) e dinamico ([DAST](https://www.owasp.org/index.php/Category:Vulnerability_Scanning_Tools)) nella pipeline di Continuos Integration e Continuos Delivery, al fine di identificare eventuali introduzioni di nuove falle di tipo *injection* prima del rilascio in produzione.
 
 ## How To Prevent
 
@@ -29,15 +28,14 @@ Preventing injection requires keeping data separate from commands and queries.
 
 **Scenario #1**: An application uses untrusted data in the construction of the following vulnerable SQL call:
 
-`String query = "SELECT * FROM accounts WHERE custID='" + request.getParameter("id") + "'";`
+'String query = "SELECT * FROM accounts WHERE custID='" + request.getParameter("id") + "'";'
 
 **Scenario #2**: Similarly, an application’s blind trust in frameworks may result in queries that are still vulnerable, (e.g. Hibernate Query Language (HQL)):
 
-`Query HQLQuery = session.createQuery("FROM accounts WHERE custID='" + request.getParameter("id") + "'");`
-
+'Query HQLQuery = session.createQuery("FROM accounts WHERE custID='" + request.getParameter("id") + "'");'
 In both cases, the attacker modifies the ‘id’ parameter value in their browser to send:  ' or '1'='1. For example:
 
-`http://example.com/app/accountView?id=' or '1'='1`
+'http://example.com/app/accountView?id=' or '1'='1'
 
 This changes the meaning of both queries to return all the records from the accounts table. More dangerous attacks could modify or delete data, or even invoke stored procedures.
 
