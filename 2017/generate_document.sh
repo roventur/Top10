@@ -75,7 +75,7 @@ generate "de"
 #generate "heb"
 
 # Italian
-#generate "it"
+generate "it"
 
 # Japanese
 #generate "jp"
