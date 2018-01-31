@@ -35,9 +35,7 @@ Possono esserci debolezze nell'autenticazione se l'applicazione:
 
 Scenario #1: [Credential stuffing](https://www.owasp.org/index.php/Credential_stuffing), l'utilizzo di  [liste di password conosciute](https://github.com/danielmiessler/SecLists), è un attacco comune. Se l'applicazione non implementa sistemi di protezione contro questo tipo di attacco può essere usata come un sistema di validazione delle password.
 
-**Scenario #2**: Molti attacchi all'autenticazione sono dovuti all'utilizzo continuato della password come solo fattore di identificazione. Sebbene una volta considerate best practice, policy come rotazione delle password e requisiti di complessità minima finiscono per incoraggiare gli utenti a utilizzare e riutilizzare password deboli. Si raccomanda alle organizzazioni di bloccare queste pratiche come in    
-
-**Scenario #2**: Most authentication attacks occur due to the continued use of passwords as a sole factor. Once considered best practices, password rotation and complexity requirements are viewed as encouraging users to use, and reuse, weak passwords. Organizations are recommended to stop these practices per NIST 800-63 e utilizzare una autenticazione multi-factor.
+**Scenario #2**: Molti attacchi all'autenticazione sono dovuti all'utilizzo continuato della password come solo fattore di identificazione. Sebbene una volta considerate best practice, policy come rotazione delle password e requisiti di complessità minima finiscono per incoraggiare gli utenti a utilizzare e riutilizzare password deboli. Si raccomanda alle organizzazioni di bloccare queste pratiche come definito in NIST 800-63 e utilizzare una autenticazione multi-factor.
 
 **Scenario #3**: I timeout delle session non sono configurati correttamente. Un utente utilizza un computer pubblico per accedere ad una applicazione. Invece di effettuare il logout, l'utente chiude il tab del browser e se va. Un attaccante usa lo stesso browser un ora dopo e la sessione utente è ancora attiva.
 
