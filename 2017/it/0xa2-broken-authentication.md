@@ -11,7 +11,7 @@ La certificazione dell'identità dell'utente, l'autenticazione e la gestione del
 
 Possono esserci debolezze nell'autenticazione se l'applicazione:
 
-* Permette attacchi automatici come il [credential stuffing](https://www.owasp.org/index.php/Credential_stuffing), in cui l'attaccante ha una lista di credenziali valide.
+* Permette attacchi automatici come il [Riutilizzo di credenziali note](https://www.owasp.org/index.php/Credential_stuffing), in cui l'attaccante ha una lista di credenziali valide.
 * Permette attacchi a forza bruta o altri attacchi automatici.
 * Permette password di deault, deboli o ben note come "Password1" o "admin/admin".
 * Utilizza sistemi di recupero di credenziali smarrite deboli o inefficaci, come il "rispondere ad domande" che non possono essere resi sicuri.
@@ -33,7 +33,7 @@ Possono esserci debolezze nell'autenticazione se l'applicazione:
 
 ## Scenari esempio di attacco
 
-Scenario #1: [Credential stuffing](https://www.owasp.org/index.php/Credential_stuffing), l'utilizzo di  [liste di password conosciute](https://github.com/danielmiessler/SecLists), è un attacco comune. Se l'applicazione non implementa sistemi di protezione contro questo tipo di attacco può essere usata come un sistema di validazione delle password.
+Scenario #1: [Riutilizzo di credenziali note](https://www.owasp.org/index.php/Credential_stuffing), l'utilizzo di  [liste di password conosciute](https://github.com/danielmiessler/SecLists), è un attacco comune. Se l'applicazione non implementa sistemi di protezione contro questo tipo di attacco può essere usata come un sistema di validazione delle password.
 
 **Scenario #2**: Molti attacchi all'autenticazione sono dovuti all'utilizzo continuato della password come solo fattore di identificazione. Sebbene una volta considerate best practice, policy come rotazione delle password e requisiti di complessità minima finiscono per incoraggiare gli utenti a utilizzare e riutilizzare password deboli. Si raccomanda alle organizzazioni di bloccare queste pratiche come definito in NIST 800-63 e utilizzare una autenticazione multi-factor.
 
